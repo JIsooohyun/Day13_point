@@ -8,8 +8,51 @@ import java.util.ArrayList;
 import com.sh.util.DBConnector;
 
 public class PointDAO { //DB Access   (Data Access Object)
-	//selectList : 전체 데이터를 리턴
 	
+	public int  teacherMax() throws Exception{
+		PointDTO pointDTO = new PointDTO();
+		Connection conn = DBConnector.getConnect();
+		
+		
+		String sql = "select nvl(max(num), 0) num from point";
+		
+		PreparedStatement st = conn.prepareStatement(sql);
+		
+		ResultSet rs = st.executeQuery();
+		
+		rs.next();
+		
+		int num = rs.getInt("num");
+		
+		DBConnector.disConnect(st, conn, rs);
+		
+		return num;
+		
+	}
+	
+	public PointDTO num()throws Exception{
+		
+		PointDTO pointDTO = new PointDTO();
+		Connection conn = DBConnector.getConnect();
+		
+		String sql = "select * from point order by num asc";
+		
+		PreparedStatement st = conn.prepareStatement(sql);
+		
+		ResultSet rs = st.executeQuery();
+		
+		while(rs.next()) {
+			pointDTO = new PointDTO();
+			pointDTO.setNum(rs.getInt(1));
+		}
+		
+		return pointDTO;
+		
+	}
+	
+	
+	
+	//selectList : 전체 데이터를 리턴
 	public ArrayList<PointDTO> selectList() throws Exception{
 		//1, 2, 3
 		Connection conn = DBConnector.getConnect();

@@ -40,6 +40,8 @@ public class PointController { //컨드롤러
 			switch(select) {
 			case 1 :
 				pointDTO = pointInput.setPoint();
+				//int num = pointDAO.teacherMax();
+				//pointDTO.setNum(num+1);
 				select = pointDAO.insert(pointDTO);
 				String message = "추가 실패";
 				if(select>0) {

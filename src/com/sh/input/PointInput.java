@@ -2,21 +2,28 @@ package com.sh.input;
 
 import java.util.Scanner;
 
+import com.sh.point.PointDAO;
 import com.sh.point.PointDTO;
 
 public class PointInput {  //입력담당
 	private Scanner sc ;
-	
+	private PointDAO pointDAO;
 	public PointInput() {
 		sc = new Scanner(System.in);
+		pointDAO = new PointDAO();
 	}
 	
 	//setPoint 
-	public PointDTO setPoint() { //정보를 입력받기
+	public PointDTO setPoint() throws Exception{ //정보를 입력받기
 		PointDTO pointDTO = new PointDTO();
 		
-		System.out.println("번호를 입력하세요");
-		pointDTO.setNum(sc.nextInt());
+		
+		
+//		System.out.println("번호를 입력하세요");
+//		pointDTO.setNum(sc.nextInt());
+		pointDTO = pointDAO.num();
+		int num = pointDTO.getNum();
+		pointDTO.setNum(num+1);
 		
 		System.out.println("아이디를 입력하세요");
 		pointDTO.setSid(sc.next());
@@ -42,8 +49,6 @@ public class PointInput {  //입력담당
 		
 		System.out.println(str+"번호를 입력");
 		int num = sc.nextInt();
-		
-		
 		
 		return num;
 	}
